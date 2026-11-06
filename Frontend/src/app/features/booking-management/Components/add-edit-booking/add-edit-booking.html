@@ -1,0 +1,103 @@
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>{{ editMode?'Edit':'Add' }} Booking</h1>
+  <button class="btn btn-primary mb-3" (click)="backToList()">Back to
+    List</button>
+</div>
+<div class="row">
+  <div class="col-6 mx-auto border p-4 mt-5 rounded shadow-sm">
+    <form [formGroup]="bookingForm">
+      <div class="mb-3">
+        <label for="GeneratedReferenceNumber" class="form-label">Generated
+          Reference Number</label>
+        <input type="text" class="form-control"
+          formControlName="generatedReferenceNumber"
+          id="GeneratedReferenceNumber"
+          placeholder="Enter Generated Reference Number">
+        @if (bookingForm.get('generatedReferenceNumber')?.touched &&
+        bookingForm.get('generatedReferenceNumber')?.invalid) {
+        <span class="text-danger">Generated Reference Number is required</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="Type" class="form-label">Type</label>
+        <select id="Type" class="form-select" formControlName="dock">
+          <option value="null" selected disabled>Select Type</option>
+          @for (item of typeOptions; track $index) {
+          <option [value]="item"
+            [selected]="bookingForm.get('dock')?.value === item">{{ item
+            }}</option>
+          }
+        </select>
+        @if (bookingForm.get('dock')?.touched &&
+        bookingForm.get('dock')?.invalid) {
+        <span class="text-danger">Type is required</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="Direction" class="form-label">Direction</label>
+        <select id="Direction" class="form-select" formControlName="dock">
+          <option value="null" selected disabled>Select Direction</option>
+          @for (item of typeOptions; track $index) {
+          <option [value]="item"
+            [selected]="bookingForm.get('dock')?.value === item">{{ item
+            }}</option>
+          }
+        </select>
+        @if (bookingForm.get('dock')?.touched &&
+        bookingForm.get('dock')?.invalid) {
+        <span class="text-danger">Direction is required</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="companyName" class="form-label">Company Name</label>
+        <input type="text" class="form-control"
+          formControlName="companyName"
+          id="companyName"
+          placeholder="Enter Company Name">
+        @if (bookingForm.get('companyName')?.touched &&
+        bookingForm.get('companyName')?.invalid) {
+        <span class="text-danger">Company Name is required</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="licensePlate" class="form-label">License Plate</label>
+        <input type="text" class="form-control"
+          formControlName="licensePlate"
+          id="licensePlate"
+          placeholder="Enter License Plate">
+        @if (bookingForm.get('licensePlate')?.touched &&
+        bookingForm.get('licensePlate')?.invalid) {
+        <span class="text-danger">License Plate is required</span>
+        }
+      </div>
+      <div class="mb-3">
+        <label for="startTime" class="form-label">Start Time</label>
+        <input type="datetime-local" class="form-control"
+          formControlName="startTime"
+          id="startTime"
+          placeholder="Enter Start Time">
+      </div>
+      <div class="mb-3">
+        <label for="endTime" class="form-label">End Time</label>
+        <input type="datetime-local" class="form-control"
+          formControlName="endTime"
+          id="endTime"
+          placeholder="Enter End Time">
+        @if (bookingForm.get('endTime')?.touched &&
+        bookingForm.get('endTime')?.invalid &&
+        bookingForm.get('endTime')?.errors?.['required']) {
+        <span class="text-danger">End Time is required</span>
+        }
+
+        @else if (bookingForm.get('endTime')?.errors?.['invalidEndTime']) {
+        <span class="text-danger">End Time cannot be less than Start
+          Time</span>
+        }
+      </div>
+      <button type="button" class="mt-4 btn btn-primary"
+        (click)="onSubmit()">Submit</button>
+    </form>
+
+  </div>
+</div>
