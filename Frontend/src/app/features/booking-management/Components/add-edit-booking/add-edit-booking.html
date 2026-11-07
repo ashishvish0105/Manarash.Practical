@@ -10,14 +10,9 @@
       <div class="mb-3">
         <label for="GeneratedReferenceNumber" class="form-label">Generated
           Reference Number</label>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control disabled"
           formControlName="generatedReferenceNumber"
-          id="GeneratedReferenceNumber"
-          placeholder="Enter Generated Reference Number">
-        @if (bookingForm.get('generatedReferenceNumber')?.touched &&
-        bookingForm.get('generatedReferenceNumber')?.invalid) {
-        <span class="text-danger">Generated Reference Number is required</span>
-        }
+          id="GeneratedReferenceNumber">
       </div>
       <div class="mb-3">
         <label for="Type" class="form-label">Type</label>

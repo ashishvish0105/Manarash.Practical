@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { disabled } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -25,7 +26,7 @@ export class AddEditBooking {
     });
 
     this.bookingForm = this.fd.group({
-      generatedReferenceNumber: [null, [Validators.required]],
+      generatedReferenceNumber: [`BK-${Date.now()}`, { disabled: true }],
       dock: [null, [Validators.required, Validators.maxLength(100)]],
       companyName: [null, [Validators.required, Validators.maxLength(100)]],
       licensePlate: [null, [Validators.required, Validators.maxLength(100)]],
