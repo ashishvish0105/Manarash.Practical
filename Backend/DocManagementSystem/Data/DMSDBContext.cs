@@ -5,14 +5,14 @@ namespace DocManagementSystem.Data
 {
     public class DMSDBContext : DbContext
     {
-        public DMSDBContext(DbContextOptions<DMSDBContext> options):base(options)
+        public DMSDBContext(DbContextOptions<DMSDBContext> options) : base(options)
         {
         }
         public DbSet<DockEntity> Docks { get; set; }
         public DbSet<BookingEntity> Bookings { get; set; }
 
 
-    
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,7 +39,16 @@ namespace DocManagementSystem.Data
                     IsActive = true,
                     CreatedAt = createdDate,
                     LastUpdatedAt = createdDate
-                }
+                },
+                new DockEntity
+                {
+                    DockId = 3,
+                    Name = "South Dock c",
+                    TypeId = 1,
+                    IsActive = true,
+                    CreatedAt = createdDate,
+                    LastUpdatedAt = createdDate
+                 }
             );
 
             modelBuilder.Entity<BookingEntity>().HasData(

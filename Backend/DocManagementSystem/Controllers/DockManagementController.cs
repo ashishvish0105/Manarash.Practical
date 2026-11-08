@@ -1,4 +1,5 @@
-﻿using DocManagementSystem.Comman;
+﻿using Azure.Core;
+using DocManagementSystem.Comman;
 using DocManagementSystem.DTOModel.DockManagement;
 using DocManagementSystem.IRepositories;
 using Microsoft.AspNetCore.Http;
@@ -29,11 +30,6 @@ namespace DocManagementSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ReturnResponse>> GetDock(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest("Invalid dock ID");
-            }
-
             var dock = await _dockManagementRepository.GetDock(id);
 
             if (dock == null)
@@ -82,6 +78,20 @@ namespace DocManagementSystem.Controllers
             }
 
             return Ok(new ReturnResponse(StatusCodes.Status200OK, "Dock deleted successfully.", result));
+        }
+
+        [HttpPut("ChangeIsActive/{id}")]
+        public async Task<ActionResult<ReturnResponse>> ChangeIsActive(int id,[FromQuery] bool isActive)
+        {
+           
+            var result = await _dockManagementRepository.ChangeIsActive(id, isActive);
+            if (result == 0)
+            {
+                return NotFound($"Dock ID {id} not found");
+            }
+
+            return Ok(new ReturnResponse(StatusCodes.Status200OK, "Update active successfully.", result));
+
         }
     }
 }

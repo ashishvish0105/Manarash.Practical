@@ -15,32 +15,69 @@
           id="GeneratedReferenceNumber">
       </div>
       <div class="mb-3">
-        <label for="Type" class="form-label">Type</label>
-        <select id="Type" class="form-select" formControlName="dock">
-          <option value="null" selected disabled>Select Type</option>
-          @for (item of typeOptions; track $index) {
-          <option [value]="item"
-            [selected]="bookingForm.get('dock')?.value === item">{{ item
+        <label for="Type" class="form-label">Dock Name</label>
+        <select id="Type" class="form-select" formControlName="dockId">
+          <option value="null" selected disabled>Select dock name</option>
+          @for (item of docksList(); track $index) {
+          <option [value]="item.dockId"
+            [selected]="bookingForm.get('dock')?.value === item.dockId">{{
+            item.name
             }}</option>
           }
         </select>
-        @if (bookingForm.get('dock')?.touched &&
-        bookingForm.get('dock')?.invalid) {
+        @if (bookingForm.get('dockId')?.touched &&
+        bookingForm.get('dockId')?.invalid) {
         <span class="text-danger">Type is required</span>
         }
       </div>
-      <div class="mb-3">
+      <div [class.d-none]="this.activeTypeLabel ==0" class="mb-3">
         <label for="Direction" class="form-label">Direction</label>
-        <select id="Direction" class="form-select" formControlName="dock">
-          <option value="null" selected disabled>Select Direction</option>
-          @for (item of typeOptions; track $index) {
-          <option [value]="item"
-            [selected]="bookingForm.get('dock')?.value === item">{{ item
+        <div class="d-flex justify-content-start align-items-center gap-3">
+          @if(this.activeTypeLabel == dockType.Both || this.activeTypeLabel ==
+          dockType.Inbound)
+          {
+          <div class="form-check">
+            <input class="form-check-input" type="radio"
+              formControlName="directionId" [checked]="this.bookingForm.get('directionId')?.value == dockType.Inbound"
+              id="Inbound" [value]="dockType.Inbound">
+            <label class="form-check-label" for="Inbound">
+              Inbound
+            </label>
+          </div>
+
+          }
+          @if(this.activeTypeLabel == dockType.Both || this.activeTypeLabel ==
+          dockType.Outbound){
+          <div class="form-check">
+            <input class="form-check-input" type="radio"
+              formControlName="directionId"
+              id="Outbound" [value]="dockType.Outbound" [checked]="this.bookingForm.get('directionId')?.value == dockType.Outbound">
+            <label class="form-check-label" for="Outbound">
+              Outbound
+            </label>
+          </div>
+          }
+          @if (bookingForm.get('directionId')?.touched &&
+          bookingForm.get('directionId')?.invalid) {
+          <span class="text-danger d-block mt-1">Direction is required</span>
+          }
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="statusId" class="form-label">Status</label>
+        <select id="statusId" class="form-select"
+          formControlName="statusId">
+          <option value="null" selected disabled>Select Status</option>
+
+          @for (item of bookingStatusOptions; track $index) {
+          <option [value]="item.value"
+            [selected]="bookingForm.get('statusId')?.value === item.value">{{
+            item.label
             }}</option>
           }
         </select>
-        @if (bookingForm.get('dock')?.touched &&
-        bookingForm.get('dock')?.invalid) {
+        @if (bookingForm.get('statusId')?.touched &&
+        bookingForm.get('statusId')?.invalid) {
         <span class="text-danger">Direction is required</span>
         }
       </div>
@@ -72,6 +109,15 @@
           formControlName="startTime"
           id="startTime"
           placeholder="Enter Start Time">
+        @if (bookingForm.get('startTime')?.touched &&
+        bookingForm.get('startTime')?.hasError('required')) {
+        <span class="text-danger d-block">Start Time is required.</span>
+        }
+
+        @if (bookingForm.get('startTime')?.hasError('invalidStartTime')) {
+        <span class="text-danger d-block">Start Time cannot be in the
+          past.</span>
+        }
       </div>
       <div class="mb-3">
         <label for="endTime" class="form-label">End Time</label>
@@ -93,6 +139,5 @@
       <button type="button" class="mt-4 btn btn-primary"
         (click)="onSubmit()">Submit</button>
     </form>
-
   </div>
 </div>

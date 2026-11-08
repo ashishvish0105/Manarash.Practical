@@ -1,6 +1,4 @@
-﻿using DocManagementSystem.Common.Enum;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DocManagementSystem.Entities
 {

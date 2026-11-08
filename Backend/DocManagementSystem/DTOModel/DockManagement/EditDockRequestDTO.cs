@@ -1,10 +1,15 @@
-﻿namespace DocManagementSystem.DTOModel.DockManagement
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DocManagementSystem.DTOModel.DockManagement
 {
-    public class EditDockRequestDTO
+    public record EditDockRequestDTO
     {
         public int DockId { get; set; }
-        public required string Name { get; set; }
-        public required int TypeId { get; set; }
+        [Required]
+        [MaxLength(150)]
+        public string Name { get; set; } = string.Empty;
+        [Required]
+        public int TypeId { get; set; }
         public bool IsActive { get; set; }
     }
 }

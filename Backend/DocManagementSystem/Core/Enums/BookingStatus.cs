@@ -1,4 +1,4 @@
-﻿namespace DocManagementSystem.Common.Enum
+﻿namespace DocManagementSystem.Core.Enum
 {
     public enum BookingStatus
     {

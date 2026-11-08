@@ -9,5 +9,6 @@ namespace DocManagementSystem.IRepositories
         public Task<List<GetDockDTO>> GetDocks();
         public Task<int> EditDock(int id, EditDockRequestDTO dock);
         public Task<int> CreateDock(CreateDockRequestDTO dock);
+        public Task<int> ChangeIsActive(int id, bool isActive);
     }
 }

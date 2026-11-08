@@ -4,8 +4,11 @@ namespace DocManagementSystem.DTOModel.DockManagement
 {
     public record CreateDockRequestDTO
     {
-        public required string Name { get; set; }
-        public required int TypeId { get; set; }
-        public bool IsActive { get; set; }
+        [Required]
+        [MaxLength(150)]
+        public string Name { get; set; } = string.Empty;
+        [Required]
+        public int TypeId { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

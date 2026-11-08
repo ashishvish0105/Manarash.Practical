@@ -1,33 +1,56 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h1 class="display-6 mb-4">Booking List</h1>
-  <button class="btn btn-primary mb-3" (click)="addBooking()">Add Booking</button>
+  <button class="btn btn-primary mb-3" (click)="addBooking()">Add
+    Booking</button>
 </div>
-<table class="table table-bordered">
+
+<table class="table table-striped table-bordered align-middle">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col" style="width: 10%;"># ID</th>
+      <th scope="col">Dock Name</th>
+      <th scope="col">company Name </th>
+      <th scope="col">LicensePlate</th>
+      <th scope="col">Direction</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Generated Reference Number</th>
+      <th scope="col" style="width: 15%;">Status</th>
+      <th scope="col" style="width: 20%;" class="text-center">Actions</th>
     </tr>
   </thead>
   <tbody>
+    @for (booking of bookingsList(); track booking.bookingId; let i = $index) {
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row">{{ booking.bookingId }}</th>
+      <td>{{ booking.dockId }}</td>
+      <td>{{ booking.companyName }}</td>
+
+      <td>{{ booking.licensePlate }}</td>
+      <td>{{ getDockTypeName(booking.directionId) }}</td>
+      <th>{{ booking.startTime }}</th>
+      <th>{{ booking.endTime}}</th>
+      <td>{{ booking.generatedReferenceNumber }}</td>
+      <td>
+        {{ getBookingStatusName(booking.statusId) }}
+      </td>
+      <td class="text-center">
+        <button class="btn btn-sm btn-outline-secondary me-2"
+          (click)="editBooking(booking.bookingId)">
+          Edit
+        </button>
+        <button class="btn btn-sm btn-outline-danger"
+          (click)="deleteBooking(booking.bookingId)">
+          Delete
+        </button>
+      </td>
     </tr>
+    } @empty {
     <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td colspan="5" class="text-center text-muted py-4">
+        No bookings available in the system.
+      </td>
     </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    }
   </tbody>
 </table>

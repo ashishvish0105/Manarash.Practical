@@ -37,7 +37,6 @@ namespace DocManagementSystem.Repositories
                 return 0;
             }
 
-            dockEntity.DockId = dock.DockId;
             dockEntity.Name = dock.Name;
             dockEntity.TypeId = dock.TypeId;
             dockEntity.IsActive = dock.IsActive;
@@ -84,6 +83,20 @@ namespace DocManagementSystem.Repositories
             }
 
             _dbContext.Docks.Remove(dockEntity);
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> ChangeIsActive(int id, bool isActive)
+        {
+            var dockEntity = await _dbContext.Docks.FindAsync(id);
+
+            if (dockEntity == null)
+            {
+                return 0;
+            }
+            dockEntity.IsActive = isActive;
+            dockEntity.LastUpdatedAt = DateTime.Now;
+
             return await _dbContext.SaveChangesAsync();
         }
     }
