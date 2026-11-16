@@ -9,10 +9,9 @@
     <form [formGroup]="dockForm">
       <div class="mb-3">
         <label for="Name" class="form-label">Name</label>
-        <input type="text" class="form-control" formControlName="name" id="Name"
-          placeholder="Enter Name">
+        <input type="text" class="form-control" formControlName="name" id="Name" placeholder="Enter Name">
         @if (dockForm.get('name')?.touched && dockForm.get('name')?.invalid) {
-        <span class="text-danger">Name is required</span>
+          <span class="text-danger">Name is required</span>
         }
       </div>
       <div class="mb-3">

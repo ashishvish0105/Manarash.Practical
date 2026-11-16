@@ -2,14 +2,19 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { GetDockModel, CreateDockRequestModel, EditDockRequestModel } from '../models/dockManagement.model';
+import {
+  GetDockModel,
+  CreateDockRequestModel,
+  EditDockRequestModel,
+  GetDockPaginationModel,
+} from '../models/dockManagement.model';
 import { ApiReturnResponse } from '../models/apiReturnResponse.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DockManagementServices {
-   private baseUrl = `${environment.BaseUrl}/DockManagement/`;
+  private baseUrl = `${environment.BaseUrl}/DockManagement/`;
 
   constructor(private http: HttpClient) {}
 
@@ -29,13 +34,31 @@ export class DockManagementServices {
     return this.http.put<ApiReturnResponse<number>>(`${this.baseUrl}${id}`, dock);
   }
 
-  changeIsActive(id: number, isActive:boolean): Observable<ApiReturnResponse<number>> {
-     const params = new HttpParams().set('isActive', isActive);
-    return this.http.put<ApiReturnResponse<number>>(`${this.baseUrl}ChangeIsActive/${id}`,null,{params});
-
+  changeIsActive(id: number, isActive: boolean): Observable<ApiReturnResponse<number>> {
+    const params = new HttpParams().set('isActive', isActive);
+    return this.http.put<ApiReturnResponse<number>>(`${this.baseUrl}ChangeIsActive/${id}`, null, {
+      params,
+    });
   }
 
   deleteDock(id: number): Observable<ApiReturnResponse<number>> {
     return this.http.delete<ApiReturnResponse<number>>(`${this.baseUrl}${id}`);
+  }
+
+  getDockPagination(
+    page: number = 1,
+    pageSize: number = 10,
+    filter: string = '',
+  ): Observable<ApiReturnResponse<GetDockPaginationModel>> {
+    let params = new HttpParams().set('page', page).set('pageSize', pageSize);
+
+    if (filter) {
+      params = params.set('filter', filter);
+    }
+
+    return this.http.get<ApiReturnResponse<GetDockPaginationModel>>(
+      `${this.baseUrl}/GetDockPagination`,
+      { params },
+    );
   }
 }

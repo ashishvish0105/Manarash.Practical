@@ -93,5 +93,25 @@ namespace DocManagementSystem.Controllers
             return Ok(new ReturnResponse(StatusCodes.Status200OK, "Update active successfully.", result));
 
         }
+
+        [HttpGet("GetDockPagination")]
+        public async Task<ActionResult<ReturnResponse>> GetDockPagination([FromQuery]int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? filter = null)
+        {
+            var result = await _dockManagementRepository.GetDockPagination(page,pageSize,filter);
+            if (result.GetDockDTO == null || !result.GetDockDTO.Any())
+            {
+                return NotFound(new ReturnResponse(
+                    StatusCodes.Status404NotFound,
+                    "No docks found.",
+                    null
+                ));
+            }
+
+            return Ok(new ReturnResponse(
+                StatusCodes.Status200OK,
+                "Dock details retrieved successfully.",
+                result
+            ));
+        }
     }
 }

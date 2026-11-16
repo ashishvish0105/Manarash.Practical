@@ -31,7 +31,6 @@ export class DockList {
   }
 
   getDockTypeName(typeId: number): string {
-    console.log(typeId);
     switch (typeId) {
       case DockType.Inbound:
         return 'Inbound';

@@ -17,3 +17,11 @@ export interface EditDockRequestModel {
   typeId: number;
   isActive: boolean;
 }
+
+export interface GetDockPaginationModel{
+  GetDockDTO :GetDockModel[];
+  TotalCount:number;
+  Page:number;
+  PageSize:number;
+  TotalPages:number;
+}

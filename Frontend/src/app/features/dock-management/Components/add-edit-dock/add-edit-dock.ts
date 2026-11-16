@@ -6,6 +6,7 @@ import { GetDockModel } from '../../../../models/dockManagement.model';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ApiReturnResponse } from '../../../../models/apiReturnResponse.model';
 import { typeOptions } from '../../../../core/enums/dockType.enum';
+import { validate } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-add-edit-dock',

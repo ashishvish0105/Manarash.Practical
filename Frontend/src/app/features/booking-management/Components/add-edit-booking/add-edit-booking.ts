@@ -104,7 +104,6 @@ export class AddEditBooking {
 
   onDockChange(dock: Event) {
     const value = dock;
-    console.log(dock);
   }
 
   getDocks() {
@@ -145,7 +144,7 @@ export class AddEditBooking {
   }
 
   onSubmit() {
-    debugger;
+    // var createBokking =
     if (this.bookingForm.invalid) {
       this.bookingForm.markAllAsTouched();
       return;
@@ -167,6 +166,8 @@ export class AddEditBooking {
         },
       });
     } else {
+      debugger;
+      console.log(this.bookingForm.value)
       this.bookingManagementservices.createBooking(this.bookingForm.value).subscribe({
         next: (response: ApiReturnResponse<number>) => {
           if (response.payload > 0) {
@@ -185,7 +186,6 @@ export class AddEditBooking {
   }
 
   getDockTypeName(typeId: number): string {
-    console.log(typeId);
     switch (typeId) {
       case DockType.Inbound:
         return 'Inbound';
